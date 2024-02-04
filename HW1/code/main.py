@@ -31,7 +31,6 @@ def visualize_features(X, y):
     plt.ylabel("Measure of Intensity")
     plt.legend()
 	
-    # Save the plot to 'train_features.png'
     plt.savefig('visualize_features.png')
     plt.show()
     ### END YOUR CODE

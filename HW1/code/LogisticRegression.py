@@ -23,7 +23,16 @@ class logistic_regression(object):
         n_samples, n_features = X.shape
 
 		### YOUR CODE HERE
-
+        init_weights = np.random.normal(loc=0,scale=0.001,size=n_features)
+        self.initial_weights(init_weights)
+        
+        for _ in range(self.max_iter):
+            y_pred = self.predict_proba(X)
+            gradients = np.zeros_like(self.W)
+            for i in range(n_samples):
+                gradients += self._gradient(X[i],y[i])
+        
+        self.W -= self.learning_rate*gradients
 		### END YOUR CODE
         return self
 
@@ -71,7 +80,11 @@ class logistic_regression(object):
                 cross-entropy with respect to self.W.
         """
 		### YOUR CODE HERE
+        z = np.dot(_x,self.W)
+        _y_hat = 1/(1+np.exp(-z))
 
+        gradient = (_y-_y_hat)*_x
+        return gradient
 		### END YOUR CODE
 
     def get_params(self):
@@ -96,7 +109,11 @@ class logistic_regression(object):
                 Only contains floats between [0,1].
         """
 		### YOUR CODE HERE
-
+        z = np.dot(X,self.W)
+        probs_1 = 1/(1+np.exp(-z))
+        probs_neg_1 = 1 - probs_1
+        preds_proba = np.hstack((probs_1,probs_neg_1))
+        return preds_proba
 		### END YOUR CODE
 
 
