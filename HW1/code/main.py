@@ -20,8 +20,20 @@ def visualize_features(X, y):
         in submission.
     '''
     ### YOUR CODE HERE
+    class_1 = X[y == 1]
+    class_2 = X[y == -1]
+    plt.figure(figsize=(8,6))
+    plt.scatter(class_1[:,0],class_1[:1],color='green',label = 'class 1')
+    plt.scatter(class_2[:,0],class_2[:1],color='red',label = 'class 2')
 
-
+    plt.title("Scatter plot of training features")
+    plt.xlabel("Measure of Symmetry")
+    plt.ylabel("Measure of Intensity")
+    plt.legend()
+	
+    # Save the plot to 'train_features.png'
+    plt.savefig('visualize_features.png')
+    plt.show()
     ### END YOUR CODE
 
 def visualize_result(X, y, W):

@@ -45,24 +45,24 @@ def prepare_X(raw_X):
 
 	# Feature 1: Measure of Symmetry
 	### YOUR CODE HERE
-    symmetry  = [-np.sum(abs(image - np.fliplr(image)))/256 for image in raw_image]
+    symmetry = -np.sum(np.abs(raw_image - np.fliplr(raw_image)), axis=(1, 2)) / 256
 
 	### END YOUR CODE
 
 	# Feature 2: Measure of Intensity
 	### YOUR CODE HERE
-    intensity = [np.sum(image)/256 for image in raw_image]
+    intensity = np.sum(raw_image, axis=(1, 2)) / 256
 	### END YOUR CODE
 
 	# Feature 3: Bias Term. Always 1.
 	### YOUR CODE HERE
-    bias = [1 for image in raw_image]
+    bias = np.ones((raw_image.shape[0], 1))
 	### END YOUR CODE
 
 	# Stack features together in the following order.
 	# [Feature 3, Feature 1, Feature 2]
 	### YOUR CODE HERE
-    X = list(zip(bias,symmetry,intensity))
+    X = np.hstack((bias,symmetry.reshape(-1,1),intensity.reshape(-1,1)))
 	### END YOUR CODE
     return X
 
